@@ -80,6 +80,13 @@ public class Homework1 {
 
     }
 
+    public void streamPipeline5_2() {
+
+
+        countries.stream().sorted((Country a ,Country b)-> Long.compare(a.getPopulation(),b.getPopulation())).limit(10).map(Country::getName).forEach(System.out::println);
+
+    }
+
     /**
      * Returns summary statistics about the number of country name translations associated with each country.
      */
@@ -99,6 +106,10 @@ public class Homework1 {
             }
         }).map(Country::getName).forEach(System.out::println);
     }
+    public void streamPipeline7_2() {
+        countries.stream().sorted( (Country a , Country b )-> Long.compare(a.getTimezones().size(), b.getTimezones().size()))
+               .map(Country::getName).forEach(System.out::println);
+    }
 
     /**
      * Prints the number of timezones for each country in the form {@code name:timezones}, in the ascending order of the number of timezones.
@@ -111,6 +122,10 @@ public class Homework1 {
             }
         }).forEach(a -> System.out.println(a.getName() + ": " + a.getTimezones().size()));
     }
+    public void streamPipeline8_2() {
+        countries.stream().sorted((Country a , Country b )-> Long.compare(a.getTimezones().size(), b.getTimezones().size())
+                ).forEach(a -> System.out.println(a.getName() + ": " + a.getTimezones().size()));
+    }
 
     /**
      * Returns the number of countries with no Spanish country name translation (the Spanish language is identifi
@@ -118,7 +133,7 @@ public class Homework1 {
      */
     public long streamPipeline9() {
 
-        return countries.stream().filter(a -> a.getTranslations().containsKey("es")).count();
+        return countries.stream().filter(a -> !(a.getTranslations().containsKey("es"))).count();
     }
 
     /**
@@ -166,6 +181,11 @@ public class Homework1 {
 
             ;
         });
+    }
+
+    public Optional<Country> streamPipeline14_2() {
+
+        return countries.stream().filter(a -> a.getArea() != null).max((Country a,Country b)-> a.getArea().compareTo(b.getArea()));
     }
 
     /**
